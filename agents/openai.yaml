@@ -1,0 +1,11 @@
+interface:
+  display_name: "Video Translator"
+  short_description: "调用线上视频翻译服务并返回预览链接"
+  default_prompt: "Use $video-translator to translate a user-provided video, convert requested language to ISO 639-1 target_language (zh/en/fr/ja, default en), and return the final preview_url."
+  required_env_vars:
+    - "VIDEO_TRANSLATE_SERVICE_API_KEY"
+  primary_credential: "VIDEO_TRANSLATE_SERVICE_API_KEY"
+  external_service_domain: "audiox-api-global.luoji.cn"
+
+policy:
+  allow_implicit_invocation: true
