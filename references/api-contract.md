@@ -29,19 +29,29 @@ Request body:
 ```json
 {
   "video_url": "https://example.com/input.mp4",
-  "target_language": "en"
+  "sourceLanguage": "zh",
+  "targetLanguage": "en",
+  "show": false,
+  "bilingual": false
 }
 ```
 
 - Multipart mode (binary source):
   - field `video`: binary file
-  - field `target_language`: one of `zh|en|fr|ja`
+  - field `sourceLanguage` or `source_language`: one of `en|zh|ko|ja|fr|ru|es|de`
+  - field `targetLanguage` or `target_language`: one of `zh|en`
+  - field `show`: boolean, default `false`
+  - field `bilingual`: boolean, default `false`
 
 Language rules:
 
-- Supported target languages: `zh`, `en`, `fr`, `ja`
-- If user specifies language, convert to ISO 639-1 code and pass as `target_language`
-- If omitted, default `target_language=en`
+- Supported target languages: `zh`, `en`
+- Supported source languages: `en`, `zh`, `ko`, `ja`, `fr`, `ru`, `es`, `de`
+- If user specifies target language, convert to ISO 639-1 code and pass as `targetLanguage`
+- If user specifies source language, convert to ISO 639-1 code and pass as `sourceLanguage`
+- If omitted, default `targetLanguage=en`
+- If `sourceLanguage` is omitted, default `sourceLanguage=zh` for `targetLanguage=en`, otherwise `sourceLanguage=en`
+- Subtitle defaults are `show=false` and `bilingual=false`
 
 Submit response (`200`):
 

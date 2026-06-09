@@ -35,13 +35,36 @@ Supported target languages:
 
 - `zh` (Chinese)
 - `en` (English)
-- `fr` (French)
-- `ja` (Japanese)
 
 Rules:
 
-- If user specifies a language, convert it to ISO 639-1 and send as `target_language`.
+- If user specifies a target language, convert it to ISO 639-1 and send as `targetLanguage`.
 - If user does not specify language, default to `en`.
+- Only Chinese and English are valid target languages.
+
+## Source Language
+
+Supported source languages:
+
+- `en` (English)
+- `zh` (Chinese)
+- `ko` (Korean)
+- `ja` (Japanese)
+- `fr` (French)
+- `ru` (Russian)
+- `es` (Spanish)
+- `de` (German)
+
+Rules:
+
+- If user specifies a source language, convert it to ISO 639-1 and send as `sourceLanguage`.
+- If source language is omitted, use `sourceLanguage=zh` when `targetLanguage=en`, and `sourceLanguage=en` when `targetLanguage=zh`.
+
+## Subtitles
+
+- `show`: whether subtitles are shown in the output video, default `false`.
+- `bilingual`: whether subtitles are bilingual, default `false`.
+- For bilingual subtitles, send both `show=true` and `bilingual=true`.
 
 ## Error Handling
 
