@@ -94,7 +94,7 @@ metadata:
 - `status = succeeded`：返回 `preview_url`
 - `status = failed`：返回 `error`
 
-## 异常处理规则（写死）
+## 异常处理规则
 
 - 没有 API Key，或者 APIKey 无效：
   - 中国地区：引导到 `https://luoji.cn`

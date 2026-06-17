@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1160" viewBox="0 0 1800 1160" role="img" aria-labelledby="title desc">
+  <title id="title">video-translator processing pipeline</title>
+  <desc id="desc">A Whisper-style architecture diagram for video translation: media input, separation, diarization, ASR, translation, voice cloning, dubbing, subtitles, and preview URL output.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#111827"/>
+    </marker>
+    <marker id="softArrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#64748B"/>
+    </marker>
+    <style>
+      .font { font-family: Arial, sans-serif; }
+      .title { font-size: 42px; font-weight: 800; fill: #111827; }
+      .section { font-size: 30px; font-weight: 780; fill: #111827; }
+      .label { font-size: 22px; font-weight: 700; fill: #111827; }
+      .small { font-size: 18px; fill: #374151; }
+      .tiny { font-size: 15px; fill: #4B5563; }
+      .box { fill: #FFFFFF; stroke: #111827; stroke-width: 2; }
+      .muted { fill: #F8FAFC; stroke: #94A3B8; stroke-width: 1.8; }
+      .blue { fill: #DBEAFE; stroke: #3B82F6; stroke-width: 1.8; }
+      .cyan { fill: #CCFBF1; stroke: #14B8A6; stroke-width: 1.8; }
+      .green { fill: #DCFCE7; stroke: #22C55E; stroke-width: 1.8; }
+      .yellow { fill: #FEF3C7; stroke: #F59E0B; stroke-width: 1.8; }
+      .orange { fill: #FFEDD5; stroke: #F97316; stroke-width: 1.8; }
+      .red { fill: #FEE2E2; stroke: #EF4444; stroke-width: 1.8; }
+      .purple { fill: #EDE9FE; stroke: #8B5CF6; stroke-width: 1.8; }
+      .pink { fill: #FCE7F3; stroke: #EC4899; stroke-width: 1.8; }
+    </style>
+  </defs>
+  <rect width="1800" height="1160" fill="#FFFFFF"/>
+  <g class="font">
+    <text x="60" y="72" class="title">video-translator processing pipeline</text>
+    <text x="60" y="112" class="small">From a user video or URL to translated dubbing, subtitle rendering, and final preview_url.</text>
+
+    <rect x="58" y="146" width="1684" height="570" rx="24" fill="#FAFAFA" stroke="#6B7280" stroke-width="2"/>
+    <text x="90" y="204" class="section">Media processing graph</text>
+
+    <rect x="90" y="252" width="210" height="116" rx="16" class="blue"/>
+    <text x="195" y="302" text-anchor="middle" class="label">Input Video</text>
+    <text x="195" y="335" text-anchor="middle" class="small">file / video_url</text>
+
+    <line x1="300" y1="310" x2="358" y2="310" stroke="#111827" stroke-width="2.4"/>
+    <path d="M358 302 L374 310 L358 318 Z" fill="#111827"/>
+
+    <rect x="382" y="232" width="238" height="156" rx="16" fill="#FFFFFF" stroke="#111827" stroke-width="2"/>
+    <text x="501" y="280" text-anchor="middle" class="label">Preprocess</text>
+    <text x="501" y="313" text-anchor="middle" class="small">decode / resample</text>
+    <text x="501" y="342" text-anchor="middle" class="small">audio-video align</text>
+
+    <line x1="620" y1="310" x2="654" y2="310" stroke="#111827" stroke-width="2.4"/>
+    <line x1="654" y1="310" x2="654" y2="244" stroke="#111827" stroke-width="2.4"/>
+    <line x1="654" y1="244" x2="686" y2="244" stroke="#111827" stroke-width="2.4"/>
+    <path d="M686 236 L702 244 L686 252 Z" fill="#111827"/>
+    <line x1="620" y1="310" x2="654" y2="310" stroke="#111827" stroke-width="2.4"/>
+    <line x1="654" y1="310" x2="654" y2="376" stroke="#111827" stroke-width="2.4"/>
+    <line x1="654" y1="376" x2="686" y2="376" stroke="#111827" stroke-width="2.4"/>
+    <path d="M686 368 L702 376 L686 384 Z" fill="#111827"/>
+
+    <rect x="702" y="196" width="270" height="96" rx="15" class="cyan"/>
+    <text x="837" y="235" text-anchor="middle" class="label">Background Separation</text>
+    <text x="837" y="263" text-anchor="middle" class="small">vocals / music / noise</text>
+
+    <rect x="702" y="328" width="270" height="96" rx="15" class="yellow"/>
+    <text x="837" y="367" text-anchor="middle" class="label">Speaker Diarization</text>
+    <text x="837" y="395" text-anchor="middle" class="small">speaker turns + timestamps</text>
+
+    <line x1="972" y1="244" x2="1036" y2="244" stroke="#111827" stroke-width="2.4"/>
+    <path d="M1036 236 L1052 244 L1036 252 Z" fill="#111827"/>
+    <line x1="972" y1="376" x2="1036" y2="376" stroke="#111827" stroke-width="2.4"/>
+    <path d="M1036 368 L1052 376 L1036 384 Z" fill="#111827"/>
+
+    <rect x="1060" y="196" width="242" height="96" rx="15" class="green"/>
+    <text x="1181" y="235" text-anchor="middle" class="label">ASR</text>
+    <text x="1181" y="263" text-anchor="middle" class="small">speech to text</text>
+
+    <rect x="1060" y="328" width="242" height="96" rx="15" class="purple"/>
+    <text x="1181" y="367" text-anchor="middle" class="label">Voice Clone</text>
+    <text x="1181" y="395" text-anchor="middle" class="small">speaker voice profile</text>
+
+    <line x1="1302" y1="244" x2="1366" y2="244" stroke="#111827" stroke-width="2.4"/>
+    <path d="M1366 236 L1382 244 L1366 252 Z" fill="#111827"/>
+    <line x1="1302" y1="376" x2="1366" y2="376" stroke="#111827" stroke-width="2.4"/>
+    <path d="M1366 368 L1382 376 L1366 384 Z" fill="#111827"/>
+
+    <rect x="1390" y="196" width="250" height="96" rx="15" class="orange"/>
+    <text x="1515" y="235" text-anchor="middle" class="label">Translate</text>
+    <text x="1515" y="263" text-anchor="middle" class="small">source -> target text</text>
+    <line x1="1515" y1="292" x2="1515" y2="316" stroke="#111827" stroke-width="2.4"/>
+    <path d="M1507 316 L1515 328 L1523 316 Z" fill="#111827"/>
+
+    <rect x="1390" y="328" width="250" height="96" rx="15" class="pink"/>
+    <text x="1515" y="367" text-anchor="middle" class="label">Dubbing TTS</text>
+    <text x="1515" y="395" text-anchor="middle" class="small">target voice audio</text>
+
+    <line x1="1515" y1="424" x2="1515" y2="468" stroke="#64748B" stroke-width="2.1"/>
+    <line x1="1515" y1="468" x2="1227" y2="468" stroke="#64748B" stroke-width="2.1"/>
+    <line x1="1227" y1="468" x2="1227" y2="478" stroke="#64748B" stroke-width="2.1"/>
+    <path d="M1219 478 L1227 494 L1235 478 Z" fill="#64748B"/>
+
+    <rect x="702" y="492" width="318" height="96" rx="15" class="blue"/>
+    <text x="861" y="531" text-anchor="middle" class="label">Subtitle Render</text>
+    <text x="861" y="559" text-anchor="middle" class="small">show / bilingual / timing</text>
+
+    <rect x="1068" y="492" width="318" height="96" rx="15" class="red"/>
+    <text x="1227" y="531" text-anchor="middle" class="label">Mix &amp; Compose</text>
+    <text x="1227" y="559" text-anchor="middle" class="small">background + dubbing + video</text>
+
+    <line x1="1020" y1="540" x2="1056" y2="540" stroke="#111827" stroke-width="2.4"/>
+    <path d="M1056 532 L1072 540 L1056 548 Z" fill="#111827"/>
+    <line x1="1386" y1="540" x2="1448" y2="540" stroke="#111827" stroke-width="2.4"/>
+    <path d="M1448 532 L1464 540 L1448 548 Z" fill="#111827"/>
+
+    <rect x="1472" y="492" width="168" height="96" rx="15" class="green"/>
+    <text x="1556" y="531" text-anchor="middle" class="label">Output</text>
+    <text x="1556" y="559" text-anchor="middle" class="small">preview_url</text>
+
+    <rect x="58" y="760" width="1684" height="332" rx="24" fill="#FAFAFA" stroke="#6B7280" stroke-width="2"/>
+    <text x="90" y="818" class="section">Task request and status format</text>
+
+    <circle cx="96" cy="925" r="11" fill="#111827"/>
+    <line x1="107" y1="925" x2="152" y2="925" stroke="#111827" stroke-width="2.4"/>
+    <path d="M152 917 L168 925 L152 933 Z" fill="#111827"/>
+
+    <rect x="178" y="894" width="118" height="62" rx="10" class="orange"/>
+    <text x="237" y="932" text-anchor="middle" class="label">video</text>
+    <line x1="296" y1="925" x2="336" y2="925" stroke="#111827" stroke-width="2.4"/>
+    <path d="M336 917 L352 925 L336 933 Z" fill="#111827"/>
+
+    <rect x="362" y="894" width="196" height="62" rx="10" class="blue"/>
+    <text x="460" y="918" text-anchor="middle" class="small">sourceLanguage</text>
+    <text x="460" y="944" text-anchor="middle" class="small">en / zh / ko / ja / ...</text>
+    <line x1="558" y1="925" x2="598" y2="925" stroke="#111827" stroke-width="2.4"/>
+    <path d="M598 917 L614 925 L598 933 Z" fill="#111827"/>
+
+    <rect x="624" y="894" width="196" height="62" rx="10" class="green"/>
+    <text x="722" y="918" text-anchor="middle" class="small">targetLanguage</text>
+    <text x="722" y="944" text-anchor="middle" class="small">zh / en</text>
+    <line x1="820" y1="925" x2="860" y2="925" stroke="#111827" stroke-width="2.4"/>
+    <path d="M860 917 L876 925 L860 933 Z" fill="#111827"/>
+
+    <rect x="886" y="894" width="152" height="62" rx="10" class="yellow"/>
+    <text x="962" y="918" text-anchor="middle" class="small">show</text>
+    <text x="962" y="944" text-anchor="middle" class="small">subtitles</text>
+    <line x1="1038" y1="925" x2="1078" y2="925" stroke="#111827" stroke-width="2.4"/>
+    <path d="M1078 917 L1094 925 L1078 933 Z" fill="#111827"/>
+
+    <rect x="1104" y="894" width="152" height="62" rx="10" class="purple"/>
+    <text x="1180" y="918" text-anchor="middle" class="small">bilingual</text>
+    <text x="1180" y="944" text-anchor="middle" class="small">true / false</text>
+    <line x1="1256" y1="925" x2="1296" y2="925" stroke="#111827" stroke-width="2.4"/>
+    <path d="M1296 917 L1312 925 L1296 933 Z" fill="#111827"/>
+
+    <rect x="1322" y="894" width="156" height="62" rx="10" class="orange"/>
+    <text x="1400" y="932" text-anchor="middle" class="label">job_id</text>
+    <line x1="1478" y1="925" x2="1518" y2="925" stroke="#111827" stroke-width="2.4"/>
+    <path d="M1518 917 L1534 925 L1518 933 Z" fill="#111827"/>
+
+    <rect x="1544" y="894" width="142" height="62" rx="10" class="green"/>
+    <text x="1615" y="918" text-anchor="middle" class="small">preview_url</text>
+    <text x="1615" y="944" text-anchor="middle" class="small">or error</text>
+
+    <path d="M1399 878 V844" stroke="#EF4444" stroke-width="2"/>
+    <text x="1322" y="836" class="tiny">queued / running</text>
+    <text x="1538" y="836" class="tiny">succeeded / failed</text>
+    <path d="M1400 956 C1400 1016 1615 1016 1615 958" fill="none" stroke="#94A3B8" stroke-width="2" stroke-dasharray="8 8"/>
+
+    <g transform="translate(92 1004)">
+      <rect x="0" y="0" width="134" height="48" rx="9" class="orange"/>
+      <text x="67" y="30" text-anchor="middle" class="small">special fields</text>
+      <rect x="154" y="0" width="126" height="48" rx="9" class="blue"/>
+      <text x="217" y="30" text-anchor="middle" class="small">language</text>
+      <rect x="300" y="0" width="122" height="48" rx="9" class="green"/>
+      <text x="361" y="30" text-anchor="middle" class="small">result</text>
+      <rect x="442" y="0" width="122" height="48" rx="9" class="purple"/>
+      <text x="503" y="30" text-anchor="middle" class="small">options</text>
+    </g>
+  </g>
+</svg>

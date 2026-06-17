@@ -1,6 +1,10 @@
+![video-translator header](assets/readme/header-simple.svg)
+
 # video-translator
 
 A skill for OpenClaw to translate/dub user videos via online service and return `preview_url`.
+
+中文版: [README.zh-CN.md](README.zh-CN.md)
 
 ## What It Does
 
@@ -10,6 +14,15 @@ A skill for OpenClaw to translate/dub user videos via online service and return 
 - Submits async job to remote service
 - Polls job status until completion
 - Returns final `preview_url` on success
+
+## Workflow
+
+![video-translator workflow](assets/readme/pipeline.svg)
+
+1. Accept a local video file or `video_url`.
+2. Run preprocessing, background separation, speaker diarization, ASR, translation, voice cloning, dubbing, subtitle rendering, and final mix/composition.
+3. Submit an async job with `POST /video-trans/orchestrate`, then poll by `job_id`.
+4. Return `preview_url` on success, or the API `error` on failure.
 
 ## Remote Service
 
@@ -87,3 +100,5 @@ Rules:
 - `agents/openai.yaml`: agent metadata
 - `references/api-contract.md`: API contract
 - `scripts/curl_examples.sh`: quick test script
+- `README.zh-CN.md`: Chinese guide with diagrams
+- `assets/readme/`: README visual assets; the current README uses the project header and a Whisper-style video translation pipeline diagram
