@@ -6,6 +6,12 @@ A skill for OpenClaw to translate/dub user videos via online service and return 
 
 中文版: [README.zh-CN.md](README.zh-CN.md)
 
+## Demo Video
+
+<video src="assets/readme/demo-en.mp4" controls preload="metadata" width="720"></video>
+
+[Watch the English demo video](assets/readme/demo-en.mp4)
+
 ## What It Does
 
 - Accepts exactly one input source:
@@ -101,4 +107,4 @@ Rules:
 - `references/api-contract.md`: API contract
 - `scripts/curl_examples.sh`: quick test script
 - `README.zh-CN.md`: Chinese guide with diagrams
-- `assets/readme/`: README visual assets; the current README uses the project header and a Whisper-style video translation pipeline diagram
+- `assets/readme/`: README assets, including the project header, a Whisper-style video translation pipeline diagram, and English and Chinese demo videos

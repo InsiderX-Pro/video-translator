@@ -4,6 +4,12 @@
 
 `video-translator` 是一个用于调用在线视频翻译 / 配音服务的 Codex skill。它接收本地视频文件或可访问的视频 URL，提交异步翻译任务，轮询任务状态，并在成功后返回最终的 `preview_url`。
 
+## 演示视频
+
+<video src="assets/readme/demo-zh-CN.mp4" controls preload="metadata" width="720"></video>
+
+[观看中文版演示视频](assets/readme/demo-zh-CN.mp4)
+
 ## 适合什么场景
 
 - 视频直译：把用户提供的视频翻译成目标语言。
@@ -135,7 +141,7 @@ VIDEO_TRANSLATE_SERVICE_API_KEY="你的 API Key" \
 - `agents/openai.yaml`：界面元数据
 - `references/api-contract.md`：接口契约
 - `scripts/curl_examples.sh`：快速调试脚本
-- `assets/readme/`：README 配图资源，当前使用项目头图和 Whisper 风格的视频翻译流程图
+- `assets/readme/`：README 资源，包含项目头图、Whisper 风格的视频翻译流程图和中英文演示视频
 
 ## 安全说明
 
