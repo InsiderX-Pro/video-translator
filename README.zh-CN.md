@@ -6,9 +6,7 @@
 
 ## 演示视频
 
-<video src="assets/readme/demo-zh-CN.mp4" controls preload="metadata" width="720"></video>
-
-[观看中文版演示视频](assets/readme/demo-zh-CN.mp4)
+https://github.com/user-attachments/assets/e43f7d48-e07e-4288-9261-0db247a54f14
 
 ## 适合什么场景
 

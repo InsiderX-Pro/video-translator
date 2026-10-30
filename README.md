@@ -8,9 +8,7 @@ A skill for OpenClaw to translate/dub user videos via online service and return 
 
 ## Demo Video
 
-<video src="assets/readme/demo-en.mp4" controls preload="metadata" width="720"></video>
-
-[Watch the English demo video](assets/readme/demo-en.mp4)
+https://github.com/user-attachments/assets/8f8e6307-7c09-40f1-981e-fdd118f400ef
 
 ## What It Does
 
