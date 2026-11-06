@@ -45,7 +45,7 @@ export VIDEO_TRANSLATE_SERVICE_API_KEY="你的 API Key"
 Authorization: Bearer <api_key>
 ```
 
-如果缺少 API Key、API Key 无效或 token 不足，中国地区用户引导到 `https://luoji.cn`，非中国地区用户引导到 `https://luoji.cn?lang=en-US`。
+API Key 在 `https://luoji.cn/studio/api-keys` 创建。缺少或无效时引导用户去该页面；积分不足（`error` 为 `INSUFFICIENT_BALANCE`）时引导到 `https://luoji.cn/studio/wallet` 充值（非中国地区加 `?lang=en-US`）。任务按积分计费：`podcast` 按「播客直译」费率，`pro` / `normal` 按对应模型费率。
 
 ## 输入方式
 
@@ -56,34 +56,30 @@ Authorization: Bearer <api_key>
 
 辅助参数：
 
+- `model`：译制模型，`podcast`（默认，播客直译）/ `pro`（AI 视频直译 Pro，保留原声音色）/ `normal`（AI 视频直译，相似音色）；不传等于 `podcast`
 - `targetLanguage` / `target_language`：目标语言，默认 `en`
-- `sourceLanguage` / `source_language`：源语言，未传时按目标语言推断
+- `sourceLanguage` / `source_language`：源语言，未传时按模型和目标语言推断
 - `show`：是否显示字幕，默认 `false`
 - `bilingual`：是否双语字幕，默认 `false`
 
 ## 语言规则
 
-目标语言当前仅支持：
+语言一律转成 ISO 639-1 代码：中文 `zh`、英文 `en`、韩语 `ko`、日语 `ja`、法语 `fr`、俄语 `ru`、西班牙语 `es`、德语 `de`、泰语 `th`、越南语 `vi`、老挝语 `lo`。
 
-- `zh`：中文
-- `en`：英文
+`model=podcast`（默认）方向固定：
 
-源语言支持：
+- `targetLanguage=en`：只能 `sourceLanguage=zh`（中文视频译成英文）
+- `targetLanguage=zh`：`sourceLanguage` 只能是 `en` / `ko` / `ja` / `fr` / `ru` / `es` / `de`
+- 未指定目标语言时用 `en`；未指定源语言时，目标 `en` 用 `zh`，目标 `zh` 用 `en`
+- 其他组合（例如韩语译成英文）会被拒绝，可改用 `model=normal`
 
-- `en`：英文
-- `zh`：中文
-- `ko`：韩语
-- `ja`：日语
-- `fr`：法语
-- `ru`：俄语
-- `es`：西班牙语
-- `de`：德语
+`model=pro` / `normal`：
 
-默认推断规则：
+- `sourceLanguage` 只能是 `zh` / `ko` / `ja` / `en`，默认 `zh`
+- `targetLanguage` 只能是 `zh` / `ko` / `en` / `fr` / `es` / `th` / `vi` / `lo`，默认 `en`
+- 允许源目标相同（只重新配音）；视频必须是 `mp4` / `mov` / `webm` / `mkv`
 
-- 未指定目标语言时，使用 `targetLanguage=en`
-- `targetLanguage=en` 且未指定源语言时，使用 `sourceLanguage=zh`
-- `targetLanguage=zh` 且未指定源语言时，使用 `sourceLanguage=en`
+接口按同样规则校验，不符合时返回 `400` 并说明允许的取值。
 
 ## 字幕规则
 
@@ -125,10 +121,16 @@ VIDEO_TRANSLATE_SERVICE_API_KEY="你的 API Key" \
   ./scripts/curl_examples.sh "/abs/path/to/input.mp4" zh en true true
 ```
 
+AI 视频直译（普通版）译成泰语：
+
+```bash
+VIDEO_TRANSLATE_SERVICE_API_KEY="你的 API Key" \n  ./scripts/curl_examples.sh "/abs/path/to/input.mp4" th zh false false normal
+```
+
 参数顺序：
 
 ```text
-<视频 URL 或本地绝对路径> [targetLanguage] [sourceLanguage] [show] [bilingual]
+<视频 URL 或本地绝对路径> [targetLanguage] [sourceLanguage] [show] [bilingual] [model]
 ```
 
 ## 文件说明

@@ -46,36 +46,37 @@ The skill uses this key as:
 
 - `Authorization: Bearer <api_key>`
 
-## Target Language
+## Model
 
-Supported target languages:
+`model` selects the AudioX product. Omit it to keep the original behaviour (`podcast`).
 
-- `zh` (Chinese)
-- `en` (English)
+| `model` | Product | Source languages | Target languages |
+| --- | --- | --- | --- |
+| `podcast` (default) | 播客直译 | see direction rules below | `zh`, `en` |
+| `pro` | AI 视频直译 Pro (keeps the original timbre) | `zh`, `ko`, `ja`, `en` | `zh`, `ko`, `en`, `fr`, `es`, `th`, `vi`, `lo` |
+| `normal` | AI 视频直译 (similar voice) | `zh`, `ko`, `ja`, `en` | `zh`, `ko`, `en`, `fr`, `es`, `th`, `vi`, `lo` |
 
-Rules:
+- Send `model=pro` when the user asks for Pro or to keep the original voice; `model=normal` for AI 视频直译.
+- When the user wants a target language `podcast` cannot do (French, Thai, Vietnamese, Lao…), use `model=normal` and say so.
+- `pro` / `normal` accept the same source and target (re-dub only) and require an `mp4` / `mov` / `webm` / `mkv` video.
 
-- If user specifies a target language, convert it to ISO 639-1 and send as `targetLanguage`.
-- If user does not specify language, default to `en`.
-- Only Chinese and English are valid target languages.
+## Languages
 
-## Source Language
+Always convert language names to ISO 639-1 codes: `zh`, `en`, `ko`, `ja`, `fr`, `ru`, `es`, `de`, `th`, `vi`, `lo`.
 
-Supported source languages:
+`model=podcast` has fixed directions:
 
-- `en` (English)
-- `zh` (Chinese)
-- `ko` (Korean)
-- `ja` (Japanese)
-- `fr` (French)
-- `ru` (Russian)
-- `es` (Spanish)
-- `de` (German)
+- `targetLanguage=en` requires `sourceLanguage=zh` (Chinese video to English).
+- `targetLanguage=zh` requires `sourceLanguage` in `en`, `ko`, `ja`, `fr`, `ru`, `es`, `de`.
+- Default `targetLanguage=en`; default source is `zh` for `en` and `en` for `zh`.
+- Other combinations (e.g. Korean to English) are rejected; offer `model=normal` instead.
 
-Rules:
+`model=pro` / `normal`:
 
-- If user specifies a source language, convert it to ISO 639-1 and send as `sourceLanguage`.
-- If source language is omitted, use `sourceLanguage=zh` when `targetLanguage=en`, and `sourceLanguage=en` when `targetLanguage=zh`.
+- `sourceLanguage` in `zh`, `ko`, `ja`, `en` (default `zh`).
+- `targetLanguage` in `zh`, `ko`, `en`, `fr`, `es`, `th`, `vi`, `lo` (default `en`).
+
+The service validates the same rules and answers `400` with the allowed values.
 
 ## Subtitles
 
@@ -83,14 +84,20 @@ Rules:
 - `bilingual`: whether subtitles are bilingual, default `false`.
 - For bilingual subtitles, send both `show=true` and `bilingual=true`.
 
+## Billing
+
+Jobs are billed in AudioX credits (积分) from the account that owns the API key: `podcast` at the
+播客直译 rate, `pro` / `normal` at their model rates. `error` is `INSUFFICIENT_BALANCE` when the
+balance runs out.
+
 ## Error Handling
 
 - Missing/invalid API key:
-  - CN users -> `https://luoji.cn`
-  - non-CN users -> `https://luoji.cn?lang=en-US`
-- Token insufficient:
-  - CN users -> `https://luoji.cn`
-  - non-CN users -> `https://luoji.cn?lang=en-US`
+  - CN users -> `https://luoji.cn/studio/api-keys`
+  - non-CN users -> `https://luoji.cn/studio/api-keys?lang=en-US`
+- Credits insufficient (`INSUFFICIENT_BALANCE`):
+  - CN users -> `https://luoji.cn/studio/wallet`
+  - non-CN users -> `https://luoji.cn/studio/wallet?lang=en-US`
 - Other failures: return API `error` text directly.
 
 ## Runtime Requirements
